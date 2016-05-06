@@ -1,0 +1,143 @@
+Campaign {
+	title: '' ,
+	description: '',
+	image: '',
+	maps: [
+		name: '',
+		description: '',
+		gridSize: '',
+		gridScale: '',
+		layers: ''
+	],
+	players: [
+		name: '',
+		character: ''
+	],
+	npcs: [
+		character:
+	],
+	items: [
+		
+	]
+}
+
+Character {
+	Info: {
+		name: '',
+		exp: 0,
+		race: 0,
+		class: 0,
+		background: 0,
+		alignment: 0,
+		perception: 0,
+		inspiration: 0,
+		initiative: 0,
+		proficiency: 0,
+		damage: 0
+	},
+	AbilityScores: {
+		strength: 0,
+		dexterity: 0,
+		constitution: 0,
+		intelligence: 0,
+		wisdom: 0,
+		charisma: 0
+	},
+	Saves: {
+		strength: {
+			score: 0,
+			selected: false
+		},
+		dexterity: {
+			score: 0,
+			selected: false
+		},
+		constitution: {
+			score: 0,
+			selected: false
+		},
+		intelligence: {
+			score: 0,
+			selected: false
+		},
+		wisdom: {
+			score: 0,
+			selected: false
+		},
+		charisma: {
+			score: 0,
+			selected: false
+		}
+	},
+	Skills: {
+		acrobatics: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		animal: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		arcana: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		athletics: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		deception: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		history: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		insight: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		intimidation: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		investigation: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		medicine: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		nature: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		perception: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		performance: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		pursuasion: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		religion: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		sleight: { 			
+			score: 0, 			
+			selected: false 		
+		},		
+		survival: { 			
+			score: 0, 			
+			selected: false 		
+		}
+	},
+	Feats: [],	
+}

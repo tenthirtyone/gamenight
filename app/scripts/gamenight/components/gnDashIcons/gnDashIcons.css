@@ -1,0 +1,69 @@
+.gn-dash-area {
+  width: 100%;
+  float: left;
+  padding: 9px;
+}
+
+.gn-dash-icon {
+  background: rgba(0,0,0,0.35); 
+  text-align: center;
+  vertical-align: top;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.gn-dash-count {
+  margin-bottom: 0px; 
+}
+
+.gn-dash-icon > a {
+  padding: 0 8px 0 0;
+  white-space: nowrap;
+  float: left;
+}
+
+.gn-dash-icon > a:hover, .gn-dash-icon > a:focus {
+  color: rgba(250,250,250,1);
+}
+
+
+.gn-dash-icon {
+    width: 73px;
+    height: 85px;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    text-align: center;
+    padding: 11px 10px 0;
+    position: relative;
+    vertical-align: top;
+}
+
+.gn-dash-icon > i {
+    font-size: 40px;
+    color: #fff;
+}
+
+.gn-dash-icon:hover {
+    background: rgba(0,0,0,0.4);
+}
+
+.gn-dash-icon img {
+    opacity: 0.8;
+}
+
+.gn-dash-icon:hover img {
+    opacity: 1;
+}
+
+.gn-dash-icon small {
+    position: absolute;
+    bottom: 7px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+}
+
+.gn-dash-icon:hover small {
+    color: #FFD600;
+}

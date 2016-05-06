@@ -1,0 +1,15 @@
+<div class="col-sm-6 col-md-4" ng-repeat="item in vm.displayboxdata">
+   <div class="gn-display-box">
+      <img ng-src="{{item.img}}" alt="">
+      <div class="p-15">
+        <h4>{{item.name}}</h4>
+      <div class="gn-tile-description">
+        <p>{{item.description}}</p>
+      </div>
+        <p>
+          <a href="#" class="btn btn-info btn-md">Edit</a>
+          <a href="#" class="btn btn-info btn-md">Delete</a>
+        </p>
+      </div>
+   </div>
+</div>

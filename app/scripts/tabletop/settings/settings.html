@@ -1,0 +1,35 @@
+	<div class="panel panel-default">
+		<div class="panel-heading">Map Settings
+		</div>
+		<div class="panel-body">
+			<label>Name:</label>
+			<input type="text" class="form-control" placeholder="Name">
+			<label>Description:</label>
+			<input type="text" class="form-control" placeholder="Description">
+
+
+			<label>Background Color:</label>
+			<input ng-model="tabletop.bgColor" ng-change="tabletop.setBGColor(tabletop.bgColor)" type="color">
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">Grid Settings
+		</div>
+		<div class="panel-body">
+			<div class="col-xs-6">
+			<label>Grid Size:</label>
+			<input ng-model="tabletop.gridSize" ng-change="tabletop.setGridSize(tabletop.gridsize)" type="text" class="form-control" placeholder="Pixels">	
+			</div>
+			<div class="col-xs-6">
+			<label>Grid Scale:</label>
+			<input ng-model="tabletop.gridscale" ng-change="tabletop.setGridScale(tabletop.gridscale)" type="text" class="form-control" placeholder="Pixels">	
+			</div>
+			<label>Show Grid:</label>
+			<button ng-class="tabletop.showGrid ? 'fa fa-eye fa-2x' : 'fa fa-eye-slash fa-2x'" ng-click="tabletop.toggleGrid()"></button>
+			<label>Snap to Grid:</label>
+			<button ng-class="tabletop.snapGrid ? 'fa fa-plus-square fa-2x' : 'fa fa-plus-square-o fa-2x'" ng-click="tabletop.toggleSnap()"></button>
+			<label>Grid Color:</label>
+			<input ng-model="tabletop.gridColor" ng-change="tabletop.setGridColor(tabletop.gridColor)" type="color">
+		</div>
+	</div>
+</div>

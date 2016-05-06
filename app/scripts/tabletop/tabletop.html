@@ -1,0 +1,29 @@
+<div class="container-fluid">
+		<div class="row">
+			<div class="menu-pane" ng-class="tabletopShell.collapseControls ? 'menu-pane-collapse' : ''" style="resize: both;">
+				<div ng-show="tabletopShell.collapseControls">
+					<li ui-sref="tabletop.settings" ng-click="tabletopShell.toggleCollapse()" class="fa fa-globe fa-3x kermit side-button"></li>
+					<li ui-sref="tabletop.assets" ng-click="tabletopShell.toggleCollapse()" class="fa fa-picture-o fa-3x noble side-button"></li>
+					<li ui-sref="tabletop.characters" ng-click="tabletopShell.toggleCollapse()" class="fa fa-users fa-3x blossom side-button"></li>
+					<li ui-sref="tabletop.items" ng-click="tabletopShell.toggleCollapse()" class="fa fa-shield fa-3x goldfish side-button"></li>					
+
+				</div>		
+				<div ng-show="!tabletopShell.collapseControls">		
+					<div>
+						<i ng-click="tabletopShell.toggleCollapse()" class="fa fa-bars fa-2x tool-button"></i>
+						<i ui-sref="tabletop.settings" class="fa fa-globe fa-2x kermit tool-button"></i>
+						<i ui-sref="tabletop.assets" class="fa fa-picture-o fa-2x noble tool-button"></i>
+						<i ui-sref="tabletop.characters" class="fa fa-users fa-2x blossom tool-button" ui-sref="characters"></i>
+						<i ui-sref="tabletop.items" class="fa fa-shield fa-2x goldfish tool-button"></i>
+					</div>
+					<ui-view></ui-view>
+				</div>				
+
+				
+			</div>
+			
+			<div class="table-pane" ng-class="tabletopShell.collapseControls ? 'table-pane-collapse' : ''">
+				<tabletop></tabletop>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,47 @@
+<div ng-show="items.itemtype">
+	<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+					<div ngf-drop="gnitem.upload($file)" ngf-select="gnitem.upload($file)" class="drop-box"
+  						ngf-drag-over-class="'dragover'" ngf-multiple="true" 
+  						ngf-pattern="'image/*,application/pdf'">
+						<h1><i class="fa fa-picture-o fa-2x"></i></h1>
+						<h2>Upload Item Image</h2>					
+					</div>
+<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+	</div>
+	<div class="block-area" id="responsiveTable">
+	<div class="table-responsive overflow" tabindex="5001" style="overflow: hidden; outline: none;">
+						<table class="table tile">
+								<thead>
+										<tr>
+												<th ng-repeat="header in gnitem.getItemModel(items.gametype, items.itemtype).headers">{{header}}</th>
+										</tr>
+								</thead>
+								<tbody>
+										<tr ng-repeat="(key, value) in gnitem.getItemModel(items.gametype, items.itemtype).values track by $index">
+											
+											<td ng-repeat="v in value">
+												<input type="text" class="form-control m-b-10" value="{{v}}" ng-show="gnitem.isTypeOf(v) === 'string'">
+												<input type="number" class="form-control m-b-10" value="{{v}}" ng-show="gnitem.isTypeOf(v) === 'number'">
+												<center><input type="checkbox" ng-checked="v" ng-show="gnitem.isTypeOf(v) === 'boolean'"></center>
+												
+												                   
+                    
+                        <div class="btn btn-sm form-control dropdown-toggle" ng-show="gnitem.isTypeOf(v) === 'object'">
+                            <select class="select dropdown-menu" multiple>
+                                <option>Toyota Avalon</option>
+                                <option>Toyota Crown</option>
+                                <option>Toyota FT86 </option>
+                                <option>Lexus LS600</option>
+                                <option>Lexus LFA</option>
+                                <option>Lexus LX570</option>
+                            </select>
+												</div>
+                        
+											</td>
+										</tr>
+								</tbody>
+						</table>
+				</div>
+</div>	
+</div>
+<hr class="whiter" />

@@ -1,0 +1,306 @@
+(function() {
+    'use strict';
+    
+    angular.module('gamenight', []);
+    
+    angular.module('gamenight')
+    .controller('ctrlMain', function($scope, $window, TabletopService) {
+        var vm = this;
+            vm.boardName = '';
+            vm.objects = [];
+            vm.collapseControls = false;
+            vm.snapToGrid = false;
+            vm.loading = false;
+            
+        
+        var dragging = false;
+        var selectedObject = '';
+        
+        init();
+
+        function addImage(img) {
+            var i = new Image();
+            i.src = img;
+                                    
+            vm.objects.push({
+                x: 0,
+                y: 0,
+                img: img,
+                img_width: i.width,
+                img_height: i.height
+            });   
+            
+            vm.drawThis();
+        }
+        
+        function getObjectAtCoordinates(coordinates) {
+            // For each Object
+            // Check if it contains x,y
+            
+            for (var i=0; i<vm.objects.length; i++) {
+                if (coordinates.x > vm.objects[i].x 
+                    && coordinates.x < (vm.objects[i].x + vm.objects[i].img_width)) {
+                       if (coordinates.y > vm.objects[i].y
+                           && coordinates.y < (vm.objects[i].y + vm.objects[i].img_height)) {
+                            selectedObject = vm.objects[i];   
+                           //console.log(selectedObject);
+                       }
+                }
+            }
+        }
+        
+        function snapToGrid(object) {
+            
+            object.x = Math.round((object.x / vm.config.gridSize)) * vm.config.gridSize;
+            object.y = Math.round((object.y / vm.config.gridSize)) * vm.config.gridSize;
+            vm.drawThis();
+        }
+        
+        function moveObject(object) {
+            object.x += (vm.mousePos.x - vm.lastMousePos.x);
+            object.y += (vm.mousePos.y - vm.lastMousePos.y);
+            vm.drawThis();
+            //lodash replace object
+            //console.log('argh');
+        }
+        
+        function init() {
+            var w = angular.element($window);        
+
+            w.bind('resize', function () {
+                $scope.$apply();
+                vm.theWidth = $window.innerWidth;
+                vm.theHeight = $window.innerHeight;
+
+                vm.drawThis(); 
+            });        
+            
+            var img = document.createElement("img");
+  
+            
+            var c = document.getElementById("testCanvas")
+            c.addEventListener("dragover", function (evt) {
+                evt.preventDefault();
+            }, false);             
+            
+            c.addEventListener('drop', function (evt) {
+                var files = evt.dataTransfer.files;
+                if (files.length > 0) {
+                    vm.loading = true;
+                    
+                    var file = files[0];
+                    if (typeof FileReader !== "undefined" && file.type.indexOf("image") != -1) {
+                        var reader = new FileReader();
+                        reader.onload = function (evt) {
+                            addImage(evt.target.result);
+                        };
+                        
+                reader.readAsDataURL(file);
+                }}                
+                evt.preventDefault();  
+                vm.loading = false;
+            })
+            
+            function getMousePos(canvas, evt) {
+                var rect = canvas.getBoundingClientRect();
+                return {
+                  x: evt.clientX - rect.left,
+                  y: evt.clientY - rect.top
+                };
+            }
+            
+            c.addEventListener('mousemove', function(evt) {
+                vm.lastMousePos = vm.mousePos;
+                vm.mousePos = getMousePos(c, evt);
+                if (dragging) {
+                    if (selectedObject) {
+                        moveObject(selectedObject);
+                    }
+                }
+              }, false);
+                        
+            c.addEventListener('mousedown', function(evt) {
+                // Get object at coordinates
+                console.log('mouse down');
+                dragging = true;
+                getObjectAtCoordinates(vm.mousePos);
+                // 1 Get the Mouse Coords
+                // 2 Loop through objects
+                // if coords between x, y and
+                //   x + img.clientwidth, y...
+                // set as selected image. 
+              }, false);   
+            
+            c.addEventListener('mouseup', function(evt) {
+                // Get object at coordinates
+                console.log('mouse up');
+                
+                if (vm.snapToGrid && selectedObject) {
+                      
+                    snapToGrid(selectedObject);
+                }
+                
+                dragging = false;
+                selectedObject = '';
+              }, false);
+            
+            resetCanvas();
+            console.log('loaded');
+        }
+
+        vm.testControllerTest = function() {
+            TabletopService.setGridSize(25);
+            console.log( TabletopService.getGridSize());
+        }
+    
+        vm.toggleControls = function() {
+           vm.collapseControls = !vm.collapseControls;
+        }
+        
+        function resetCanvas() {
+            var config = {
+                bgColorSet: false,
+                bgColor: "#ffffff",
+                grid: false,
+                gridColor: "#000000",
+                gridSize: 50
+            }
+            
+            vm.config = config;
+            vm.objects = [];
+            vm.boardName = '';
+        }
+        
+        vm.saveCanvas = function() {
+            if (!vm.boardName) {
+                vm.boardName = prompt("Please enter a name for this board", "Gehenna");
+            }
+            
+            //console.log(vm.boardName);
+            //console.log(TabletopService.boardExists(vm.boardName));
+            
+            if (TabletopService.boardExists(vm.boardName)) {
+                if(confirm('A game board with this name already exists. Overwite?')) {
+                    // Remove Canvas
+                    TabletopService.removeCanvas(vm.boardName);
+                    // Save Canvas
+                    TabletopService.saveCanvas(vm.boardName, vm.config, vm.objects);
+                    resetCanvas();
+                    vm.drawThis();
+                } 
+            } else {
+                TabletopService.saveCanvas(vm.boardName, vm.config, vm.objects);
+                resetCanvas();
+                vm.drawThis();
+            }
+        }  
+        
+        vm.restoreCanvas = function() {
+            var board = TabletopService.restoreCanvas(document.getElementById("SavedBoards").selectedIndex);
+            console.log(board);
+            
+            var config = board.config;
+            vm.boardName = board.boardName;
+            vm.config = config;
+            
+            var objects = board.objects
+            vm.objects = objects;
+            vm.drawThis();
+        }
+        
+        vm.clearGrid = function() {
+            vm.config.grid = false;
+            vm.drawThis();
+        }
+        
+        vm.drawGrid = function(gridSize) {
+            if (vm.config.grid) {
+                vm.clearGrid();   
+            } else {
+                console.log(gridSize);
+                if (gridSize >= 4) {
+                vm.config.grid = true;
+                vm.config.gridSize = parseInt(gridSize);
+                vm.drawThis();     
+                } else {
+                    alert('Grid size must be at least 4 pixels');   
+                }
+            }
+        }
+        
+        vm.toggleSnap = function() {
+               vm.snapToGrid = !vm.snapToGrid;
+        }
+        
+        vm.changeBackground = function(bgColor) {
+            vm.config.bgColorSet = true;
+            vm.config.bgColor = bgColor;
+            vm.drawThis();
+        }
+
+        vm.clearBackground = function() {
+            vm.changeBackground('#fefefe');
+            vm.config.bgColorSet = false;
+        }
+        
+        vm.savedCanvases = function() {
+            return TabletopService.savedCanvases;  
+        }
+        
+        vm.drawThis = function() {
+            var c = document.getElementById("testCanvas");
+            var ctx = c.getContext("2d");
+            ctx.clearRect(0,0, $window.innerWidth, $window.innerHeight); 
+    
+ 
+
+            //Each if is a draw layer
+            if (true) {
+                var c = document.getElementById("testCanvas");
+                var ctx = c.getContext("2d");
+                ctx.fillStyle = vm.config.bgColor;
+                ctx.fillRect(0,0, $window.innerWidth, $window.innerHeight); 
+            }
+            
+            for (var i=0; i < vm.objects.length; i++) {
+                console.log('drawing image');
+                var img = new Image();
+                img.src = vm.objects[i].img;
+                console.log(img.width);
+                ctx.drawImage(img, vm.objects[i].x, vm.objects[i].y);   
+            }            
+            
+            //var img = new Image();
+            //img.src = selectedObject;
+            //ctx.drawImage(img, selectedObject.x, selectedObject.y);
+            
+            if (vm.config.grid) {
+                var c = document.getElementById("testCanvas");
+                var ctx = c.getContext("2d");
+
+                for (var i=0; i < $window.innerWidth; i+=vm.config.gridSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(i, 0);
+                    ctx.lineTo(i, $window.innerHeight);
+                    
+                    ctx.strokeStyle = vm.config.gridColor;
+                    ctx.stroke();
+                }
+                
+                for (var i=0; i < $window.innerHeight; i+=vm.config.gridSize) {
+                    //console.log(i);
+                    //console.log($window.innerWidth);
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, i);
+                    ctx.lineTo($window.innerWidth, i);
+                    ctx.stroke();
+                }   
+            }            
+        }
+        
+
+        
+        return vm;
+    })
+}());

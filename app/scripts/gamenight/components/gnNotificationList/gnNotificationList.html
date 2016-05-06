@@ -1,0 +1,18 @@
+<div class="gn-notification-list">
+  <div class="gn-notification-list-title">{{vm.notificationdata.title}}</div>
+  <div class="gn-listview narrow">
+    <div class="media" ng-repeat="lineitem in vm.notificationdata.lineitems">
+      <div class="pull-left" ng-show="lineitem.img">
+        <img width="40" ng-src="{{lineitem.img}}" alt="">
+      </div>
+      <div class="media-body" ui-sref="{{lineitem.id}}">
+        <small class="text-muted">{{lineitem.timestamp}}</small><br/>
+        {{lineitem.text}}
+      </div>
+    </div>
+
+    <div class="media text-center">
+      <a sref="{{vm.notificationdata.sref}}"><small>VIEW ALL</small></a>
+    </div>
+  </div>
+</div>

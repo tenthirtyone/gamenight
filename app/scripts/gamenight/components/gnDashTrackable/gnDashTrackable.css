@@ -1,0 +1,38 @@
+.gn-trackable {
+    padding: 13px 0 0 0;
+    height: 75px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.35);
+}
+
+.gn-trackable h2 {
+    margin: 2px 0 1px 0;
+    line-height: 29px;
+    font-size: 30px;
+    left: 10px;
+    top: 10px;
+    position: absolute;
+    line-height: 100%;
+}
+
+.gn-trackable small {
+    font-size: 11px;
+    text-transform: uppercase;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    float: left;
+    margin-bottom: 2px;
+}
+
+.gn-trackable small {
+    bottom: 15px;
+    left: 11px;
+    position: absolute;
+}
+
+.gn-trackable [id^="stats-line"] {
+    margin-left: -2px;
+    width: 101%;
+}

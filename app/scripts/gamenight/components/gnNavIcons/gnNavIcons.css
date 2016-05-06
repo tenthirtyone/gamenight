@@ -1,0 +1,38 @@
+/* Top Menu */
+.gn-icon {
+  margin: 0; 
+  background-color: rgba(0,0,0,0.23);
+  padding-left: 1em; 
+  padding-right: 1em; 
+}
+
+.gn-icon > a {
+    padding: 0 8px 0 0;
+    white-space: nowrap;
+    height:50px;
+    float: left;
+}
+
+.gn-icon > a:hover, .gn-icon > a:focus {
+    color: rgba(250,250,250,1);
+}
+
+.gn-icon img {
+    float: left;
+}
+
+.gn-icon span {
+  width: 0px;
+  float: left;
+  overflow: hidden;
+  line-height: 48px;
+  -webkit-transition: all 300ms;
+  -moz-transition: all 300ms;
+  -o-transition: all 300ms;
+  -ms-transition: all 300ms;
+  transition: all 300ms;
+}
+
+.gn-icon:hover span, .gn-icon.open span {
+    width: 70px !important;
+}

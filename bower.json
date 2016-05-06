@@ -1,0 +1,25 @@
+{
+  "name": "gamenight",
+  "version": "0.0.0",
+  "authors": [
+    "tenthirtyone <spactigus@gmail.com>"
+  ],
+  "license": "copyrighted?",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "lodash": "~3.10.1",
+    "angular-ui-router": "~0.2.15",
+    "flexslider": "~2.6.0",
+    "ng-file-upload": "~10.1.9"
+  },
+  "devDependencies": {
+    "angular-bootstrap": "~0.14.3"
+  }
+}
